@@ -1,22 +1,30 @@
-# List of parsers and combinators
+# 约定: parsers -> 解析器
+#       combinators  -> 组合子
 
-**Note**: this list is meant to provide a nicer way to find a nom parser than reading through the documentation on docs.rs. Function combinators are organized in module so they are a bit easier to find.
+# 解析器 与 组合子
 
-Links present in this document will nearly always point to `complete` version of the parser. Most of the parsers also have a `streaming` version.
+**Note**: 这个列表旨在提供一种比阅读docs.rs上的文档更方便的方法来找到nom解析器。函数组合子是在模块中组织的，所以更容易找到.
+本文档中的链接大部分是指向解析器的“complete”版本。大多数解析器也有一个“streaming”版本。
 
 ## Basic elements
 
 Those are used to recognize the lowest level elements of your grammar, like, "here is a dot", or "here is an big endian integer".
+这些用于识别语法的最低级别元素，如“这是一个'.'”或“这是一个 [大端序integer]”。
+
+
+
+
+
 
 | combinator | usage | input | output | comment |
 |---|---|---|---|---|
-| [char](https://docs.rs/nom/latest/nom/character/complete/fn.char.html) | `char('a')` |  `"abc"` | `Ok(("bc", 'a'))` |Matches one character (works with non ASCII chars too) | 
-| [is_a](https://docs.rs/nom/latest/nom/bytes/complete/fn.is_a.html) | `is_a("ab")` |  `"abbac"` | `Ok(("c", "abba"))` |Matches a sequence of any of the characters passed as arguments|
-| [is_not](https://docs.rs/nom/latest/nom/bytes/complete/fn.is_not.html) | `is_not("cd")` |  `"ababc"` | `Ok(("c", "abab"))` |Matches a sequence of none of the characters passed as arguments|
-| [one_of](https://docs.rs/nom/latest/nom/character/complete/fn.one_of.html) | `one_of("abc")` |  `"abc"` | `Ok(("bc", 'a'))` |Matches one of the provided characters (works with non ASCII characters too)|
-| [none_of](https://docs.rs/nom/latest/nom/character/complete/fn.none_of.html) | `none_of("abc")` |  `"xyab"` | `Ok(("yab", 'x'))` |Matches anything but the provided characters|
-| [tag](https://docs.rs/nom/latest/nom/bytes/complete/fn.tag.html) | `tag("hello")` |  `"hello world"` | `Ok((" world", "hello"))` |Recognizes a specific suite of characters or bytes|
-| [tag_no_case](https://docs.rs/nom/latest/nom/bytes/complete/fn.tag_no_case.html) | `tag_no_case("hello")` |  `"HeLLo World"` | `Ok((" World", "HeLLo"))` |Case insensitive comparison. Note that case insensitive comparison is not well defined for unicode, and that you might have bad surprises|
+| [char](https://docs.rs/nom/latest/nom/character/complete/fn.char.html) | `char('a')` |  `"abc"` | `Ok(("bc", 'a'))` |Matches one character (works with non ASCII chars too) 匹配一个字符（也适用于非ASCII字符）| 
+| [is_a](https://docs.rs/nom/latest/nom/bytes/complete/fn.is_a.html) | `is_a("ab")` |  `"abbac"` | `Ok(("c", "abba"))` |Matches a sequence of any of the characters passed as arguments匹配[参数指定的任何字符]的序列|
+| [is_not](https://docs.rs/nom/latest/nom/bytes/complete/fn.is_not.html) | `is_not("cd")` |  `"ababc"` | `Ok(("c", "abab"))` |Matches a sequence of none of the characters passed as arguments匹配一个不包含 [参数指定的任何字符] 的序列|
+| [one_of](https://docs.rs/nom/latest/nom/character/complete/fn.one_of.html) | `one_of("abc")` |  `"abc"` | `Ok(("bc", 'a'))` |Matches one of the provided characters (works with non ASCII characters too)匹配提供的一个字符（也适用于非ASCII字符）|
+| [none_of](https://docs.rs/nom/latest/nom/character/complete/fn.none_of.html) | `none_of("abc")` |  `"xyab"` | `Ok(("yab", 'x'))` |Matches anything but the provided characters匹配所提供字符以外的任何字符|
+| [tag](https://docs.rs/nom/latest/nom/bytes/complete/fn.tag.html) | `tag("hello")` |  `"hello world"` | `Ok((" world", "hello"))` |Recognizes a specific suite of characters or bytes识别一组特定的字符或字节|
+| [tag_no_case](https://docs.rs/nom/latest/nom/bytes/complete/fn.tag_no_case.html) | `tag_no_case("hello")` |  `"HeLLo World"` | `Ok((" World", "HeLLo"))` |Case insensitive comparison. Note that case insensitive comparison is not well defined for unicode, and that you might have bad surprises不区分大小写的比较。请注意，不区分大小写的比较并没有为unicode定义好，并且您可能会有不好的意外|
 | [take](https://docs.rs/nom/latest/nom/bytes/complete/fn.take.html) | `take(4)` |  `"hello"` | `Ok(("o", "hell"))` |Takes a specific number of bytes or characters|
 | [take_while](https://docs.rs/nom/latest/nom/bytes/complete/fn.take_while.html) | `take_while(is_alphabetic)` |  `"abc123"` | `Ok(("123", "abc"))` |Returns the longest list of bytes for which the provided function returns true. `take_while1` does the same, but must return at least one character, while `take_while_m_n` must return between m and n|
 | [take_till](https://docs.rs/nom/latest/nom/bytes/complete/fn.take_till.html) | `take_till(is_alphabetic)` |  `"123abc"` | `Ok(("abc", "123"))` |Returns the longest list of bytes or characters until the provided function returns true. `take_till1` does the same, but must return at least one character. This is the reverse behaviour from `take_while`: `take_till(f)` is equivalent to `take_while(\|c\| !f(c))`|
