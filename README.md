@@ -13,24 +13,24 @@ nom是一个用Rust编写的解析器组合库。它的目标是在不影响速�
 
 ![nom logo in CC0 license, by Ange Albertini](https://raw.githubusercontent.com/Geal/nom/main/assets/nom.png)
 
-*nom will happily take a byte out of your files :)*
+*nom 会很乐意从你的文件中取出一个字节 :)*
 
 <!-- toc -->
 
-- [Example](#example)
-- [Documentation](#documentation)
-- [Why use nom?](#why-use-nom)
-    - [Binary format parsers](#binary-format-parsers)
-    - [Text format parsers](#text-format-parsers)
-    - [Programming language parsers](#programming-language-parsers)
-    - [Streaming formats](#streaming-formats)
-- [Parser combinators](#parser-combinators)
-- [Technical features](#technical-features)
+- [例子](#example)
+- [文档](#documentation)
+- [为什么使用 nom?](#why-use-nom)
+    - [二进制格式 parsers](#binary-format-parsers)
+    - [文本格式 parsers](#text-format-parsers)
+    - [编程语言 parsers](#programming-language-parsers)
+    - [流格式](#streaming-formats)
+- [Parser 组合](#parser-combinators)
+- [技术特点](#technical-features)
 - [Rust version requirements](#rust-version-requirements-msrv)
 - [Installation](#installation)
-- [Related projects](#related-projects)
-- [Parsers written with nom](#parsers-written-with-nom)
-- [Contributors](#contributors)
+- [相关的项目](#related-projects)
+- [使用nom编写一个 parsers](#parsers-written-with-nom)
+- [贡献人](#contributors)
 
 <!-- tocstop -->
 
