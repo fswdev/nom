@@ -100,7 +100,7 @@ fn parse_color() {
 - [Reference documentation](https://docs.rs/nom)
 - [The Nominomicon: A Guide To Using Nom](https://tfpk.github.io/nominomicon/)
 - [Various design documents and tutorials](https://github.com/fswdev/nom/tree/main/doc)
-- [parsers 与 combinators 列表]###(https://github.com/fswdev/nom/blob/main/doc/choosing_a_combinator.md)
+- [parsers 与 combinators 列表](https://github.com/fswdev/nom/blob/main/doc/choosing_a_combinator.md)
 
 If you need any help developing your parsers, please ping `geal` on IRC (Libera, Geeknode, OFTC), go to `#nom-parsers` on Libera IRC, or on the [Gitter chat room](https://gitter.im/Geal/nom).
 
@@ -110,9 +110,8 @@ If you want to write:
 
 ### Binary format parsers
 
-nom was designed to properly parse binary formats from the beginning. Compared
-to the usual handwritten C parsers, nom parsers are just as fast, free from
-buffer overflow vulnerabilities, and handle common patterns for you:
+nom从一开始就被设计用于正确解析二进制格式。与通常的手写C语法分析器相比，
+nom语法分析器同样快速，不受缓冲区溢出漏洞，并可以为您处理常见模式:
 
 - [TLV](https://en.wikipedia.org/wiki/Type-length-value)
 - Bit level parsing
@@ -127,9 +126,8 @@ Example projects:
 
 ### Text format parsers
 
-While nom was made for binary format at first, it soon grew to work just as
-well with text formats. From line based formats like CSV, to more complex, nested
-formats such as JSON, nom can manage it, and provides you with useful tools:
+虽然nom最初是为二进制格式而设计的，但很快nom就适用于文本格式的解析。
+从基于行的简单格式(CSV等)，到复杂的嵌套格式(JSON), nom等格式可以管理它，并为您提供有用的工具：
 
 - Fast case insensitive comparison
 - Recognizers for escaped strings
@@ -143,15 +141,10 @@ Example projects:
 
 ### Programming language parsers
 
-While programming language parsers are usually written manually for more
-flexibility and performance, nom can be (and has been successfully) used
-as a prototyping parser for a language.
+虽然编程语言解析器通常是手动编写的，以获得更大的灵活性和性能，但nom可以（并且已经成功地）用作语言的原型解析器。
 
-nom will get you started quickly with powerful custom error types, that you
-can leverage with [nom_locate](https://github.com/fflorent/nom_locate) to
-pinpoint the exact line and column of the error. No need for separate
-tokenizing, lexing and parsing phases: nom can automatically handle whitespace
-parsing, and construct an AST in place.
+nom将让您快速开始使用强大的自定义错误类型，您可以使用[nom_locate](https://github.com/fflorent/nom_locate)
+以精确定位错误的确切行和列。不需要单独的标记化、词法分析和解析阶段：nom可以自动处理空白解析，并就地构建AST。
 
 Example projects:
 
@@ -161,15 +154,12 @@ Example projects:
 
 ### Streaming formats
 
-While a lot of formats (and the code handling them) assume that they can fit
-the complete data in memory, there are formats for which we only get a part
-of the data at once, like network formats, or huge files.
-nom has been designed for a correct behaviour with partial data: If there is
-not enough data to decide, nom will tell you it needs more instead of silently
-returning a wrong result. Whether your data comes entirely or in chunks, the
-result should be the same.
+虽然很多格式（以及处理它们的代码）都认为它们可以容纳内存中的完整数据，但也有一些格式我们一次只能获得部分数据，
+比如网络格式或大文件。
+nom是为部分数据的正确行为而设计的：如果没有足够的数据来决定，nom会告诉你它需要更多的数据，
+而不是默默地返回错误的结果。无论你的数据是完整的还是大块的，结果都应该是一样的。
 
-It allows you to build powerful, deterministic state machines for your protocols.
+它允许您为您的协议构建强大的、确定性的状态机。
 
 Example projects:
 
@@ -188,26 +178,34 @@ like "recognize 'HTTP', then a space, then a version".
 The resulting code is small, and looks like the grammar you would have
 written with other parser approaches.
 
-This has a few advantages:
-
-- The parsers are small and easy to write
-- The parsers components are easy to reuse (if they're general enough, please add them to nom!)
-- The parsers components are easy to test separately (unit tests and property-based tests)
-- The parser combination code looks close to the grammar you would have written
-- You can build partial parsers, specific to the data you need at the moment, and ignore the rest
+语法分析器组合子是一种语法分析器的方法，
+与[lex]等软件不同(https://en.wikipedia.org/wiki/Lex_（software））和
+[yacc](https://en.wikipedia.org/wiki/Yacc)。
+您不需要在单独的文件中编写语法来生成相应的代码，只需要使用具有特定目的的非常小的函数，如“占用5个字节”，
+或者“识别‘HTTP’这个词”，并将它们组合成有意义的模式，比如“识别‘HTTP'，然后是一个空格，然后是版本”。
+生成的代码很小，效果就像用其他解析器方法编写的语法一样。
+ 
+nom的几个优点：
+-解析器很小，编写起来很容易
+-解析器组件易于重用（如果它们足够通用，请将它们添加到nom！）
+-解析器组件易于单独测试（单元测试和基于属性的测试）
+-解析器组合代码看起来与您编写的语法非常接近
+-您可以针对当前需要的数据构建部分解析器，并忽略其余部分
 
 ## Technical features
 
-nom parsers are for:
-- [x] **byte-oriented**: The basic type is `&[u8]` and parsers will work as much as possible on byte array slices (but are not limited to them)
-- [x] **bit-oriented**: nom can address a byte slice as a bit stream
-- [x] **string-oriented**: The same kind of combinators can apply on UTF-8 strings as well
-- [x] **zero-copy**: If a parser returns a subset of its input data, it will return a slice of that input, without copying
-- [x] **streaming**: nom can work on partial data and detect when it needs more data to produce a correct result
-- [x] **descriptive errors**: The parsers can aggregate a list of error codes with pointers to the incriminated input slice. Those error lists can be pattern matched to provide useful messages.
-- [x] **custom error types**: You can provide a specific type to improve errors returned by parsers
-- [x] **safe parsing**: nom leverages Rust's safe memory handling and powerful types, and parsers are routinely fuzzed and tested with real world data. So far, the only flaws found by fuzzing were in code written outside of nom
-- [x] **speed**: Benchmarks have shown that nom parsers often outperform many parser combinators library like Parsec and attoparsec, some regular expression engines and even handwritten C parsers
+nnom解析器用于：
+
+-[x]**byte-oriented**：基本类型为“&[u8]”，解析器将尽可能多地在字节数组切片上工作（但不限于此）
+-[x]**bit-oriented**：nom可以将字节片寻址为位流
+-[x]**string-oriented**：同样类型的组合子也可以应用于UTF-8字符串
+-[x]**zero-copy**：如果解析器返回其输入数据的子集，它将返回该输入的切片，而不进行复制
+-[x]**streaming**:nom可以处理部分数据，并检测何时需要更多数据才能产生正确的结果
+-[x]**descriptive errors**：解析器可以聚合一个错误代码列表，其中包含指向递增输入切片的指针。这些错误列表可以进行模式匹配，以提供有用的消息。
+-[x]**custom error types**：您可以提供特定的类型来改进解析器返回的错误
+-[x]**safe parsing**:nom利用了Rust的安全内存处理和强大的类型，解析器通常会被模糊化，并用真实世界的数据进行测试。到目前为止，模糊化发现的唯一缺陷是在nom之外编写的代码中
+-[x]**speed**：基准测试表明，nom解析器通常优于许多解析器组合子库，如Parsec和attoparsec，一些正则表达式引擎，甚至手写C解析器
+ 
 
 Some benchmarks are available on [GitHub](https://github.com/rust-bakery/parser_benchmarks).
 
@@ -249,7 +247,8 @@ features = ["alloc"]
 
 Here is a (non exhaustive) list of known projects using nom:
 
-- Text file formats: [Ceph Crush](https://github.com/cholcombe973/crushtool),
+- Text file formats:
+[Ceph Crush](https://github.com/cholcombe973/crushtool),
 [Cronenberg](https://github.com/ayrat555/cronenberg),
 [XFS Runtime Stats](https://github.com/ChrisMacNaughton/xfs-rs),
 [CSV](https://github.com/GuillaumeGomez/csv-parser),
