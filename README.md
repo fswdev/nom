@@ -17,7 +17,7 @@ nom是一个用Rust编写的解析器组合库。它的目标是在不影响速�
 
 <!-- toc -->
 
-- [例子](#example)
+- [例子](#示例)
 - [文档](#documentation)
 - [为什么使用 nom?](#why-use-nom)
     - [二进制格式 parsers](#binary-format-parsers)
@@ -34,7 +34,7 @@ nom是一个用Rust编写的解析器组合库。它的目标是在不影响速�
 
 <!-- tocstop -->
 
-## Example
+## 示例
 
 [Hexadecimal color](https://developer.mozilla.org/en-US/docs/Web/CSS/color) parser:
 
@@ -95,12 +95,12 @@ fn parse_color() {
 }
 ```
 
-## Documentation
+## 文档
 
 - [Reference documentation](https://docs.rs/nom)
 - [The Nominomicon: A Guide To Using Nom](https://tfpk.github.io/nominomicon/)
 - [Various design documents and tutorials](https://github.com/rust-bakery/nom/tree/main/doc)
-- [List of combinators and their behaviour](https://github.com/rust-bakery/nom/blob/main/doc/choosing_a_combinator.md)
+- ###[parsers 与 combinators 列表](https://github.com/rust-bakery/nom/blob/main/doc/choosing_a_combinator.md)
 
 If you need any help developing your parsers, please ping `geal` on IRC (Libera, Geeknode, OFTC), go to `#nom-parsers` on Libera IRC, or on the [Gitter chat room](https://gitter.im/Geal/nom).
 
