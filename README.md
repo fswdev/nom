@@ -127,7 +127,7 @@ Example projects:
 ### Text format parsers
 
 虽然nom最初是为二进制格式而设计的，但很快nom就适用于文本格式的解析。
-从基于行的简单格式(CSV等)，到复杂的嵌套格式(JSON), nom等格式可以管理它，并为您提供有用的工具：
+从基于行的简单格式(CSV等)，到复杂的嵌套格式(JSON), nom都可以处理它，并为您提供有用的工具：
 
 - Fast case insensitive comparison
 - Recognizers for escaped strings
@@ -179,8 +179,8 @@ The resulting code is small, and looks like the grammar you would have
 written with other parser approaches.
 
 语法分析器组合子是一种语法分析器的方法，
-与[lex]等软件不同(https://en.wikipedia.org/wiki/Lex_（software））和
-[yacc](https://en.wikipedia.org/wiki/Yacc)。
+与[lex](https://en.wikipedia.org/wiki/Lex_(software)) 和
+[yacc](https://en.wikipedia.org/wiki/Yacc)等软件完全不同。
 您不需要在单独的文件中编写语法来生成相应的代码，只需要使用具有特定目的的非常小的函数，如“占用5个字节”，
 或者“识别‘HTTP’这个词”，并将它们组合成有意义的模式，比如“识别‘HTTP'，然后是一个空格，然后是版本”。
 生成的代码很小，效果就像用其他解析器方法编写的语法一样。
