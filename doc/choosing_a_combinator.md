@@ -1,5 +1,6 @@
-# 约定: parsers -> 解析器
-#       combinators  -> 组合子
+# 约定 #: 
+          parsers -> 解析器
+         combinators  -> 组合子
 
 # 解析器 与 组合子
 
