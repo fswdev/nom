@@ -168,16 +168,6 @@ Example projects:
 
 ## Parser combinators
 
-Parser combinators are an approach to parsers that is very different from
-software like [lex](https://en.wikipedia.org/wiki/Lex_(software)) and
-[yacc](https://en.wikipedia.org/wiki/Yacc). Instead of writing the grammar
-in a separate file and generating the corresponding code, you use very
-small functions with very specific purpose, like "take 5 bytes", or
-"recognize the word 'HTTP'", and assemble them in meaningful patterns
-like "recognize 'HTTP', then a space, then a version".
-The resulting code is small, and looks like the grammar you would have
-written with other parser approaches.
-
 语法分析器组合子是一种语法分析器的方法，
 与[lex](https://en.wikipedia.org/wiki/Lex_(software)) 和
 [yacc](https://en.wikipedia.org/wiki/Yacc)等软件完全不同。
