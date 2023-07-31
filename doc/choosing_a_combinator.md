@@ -42,12 +42,12 @@ Those are used to recognize the lowest level elements of your grammar, like, "he
 
 | combinator | usage | input | output | comment |
 |---|---|---|---|---|
-| [delimited](https://docs.rs/nom/latest/nom/sequence/fn.delimited.html) | `delimited(char('('), take(2), char(')'))` | `"(ab)cd"` | `Ok(("cd", "ab"))` ||
-| [preceded](https://docs.rs/nom/latest/nom/sequence/fn.preceded.html) | `preceded(tag("ab"), tag("XY"))` | `"abXYZ"` | `Ok(("Z", "XY"))` ||
-| [terminated](https://docs.rs/nom/latest/nom/sequence/fn.terminated.html) | `terminated(tag("ab"), tag("XY"))` | `"abXYZ"` | `Ok(("Z", "ab"))` ||
-| [pair](https://docs.rs/nom/latest/nom/sequence/fn.pair.html) | `pair(tag("ab"), tag("XY"))` | `"abXYZ"` | `Ok(("Z", ("ab", "XY")))` ||
-| [separated_pair](https://docs.rs/nom/latest/nom/sequence/fn.separated_pair.html) | `separated_pair(tag("hello"), char(','), tag("world"))` | `"hello,world!"` | `Ok(("!", ("hello", "world")))` ||
-| [tuple](https://docs.rs/nom/latest/nom/sequence/fn.tuple.html) | `((tag("ab"), tag("XY"), take(1)))` | `"abXYZ!"` | `Ok(("!", ("ab", "XY", "Z")))` | Chains parsers and assemble the sub results in a tuple. You can use as many child parsers as you can put elements in a tuple|
+| [delimited](https://docs.rs/nom/latest/nom/sequence/fn.delimited.html) | `delimited(char('('), take(2), char(')'))` | `"(ab)cd"` | `Ok(("cd", "ab"))` |匹配来自第一个解析器的对象并丢弃它，然后从第二个解析器获得对象，最后匹配来自第三个解析器的一个对象并丢弃。|
+| [preceded](https://docs.rs/nom/latest/nom/sequence/fn.preceded.html) | `preceded(tag("ab"), tag("XY"))` | `"abXYZ"` | `Ok(("Z", "XY"))` |匹配第一个解析器中的对象并丢弃它，然后从第二个解析器中获取对象。|
+| [terminated](https://docs.rs/nom/latest/nom/sequence/fn.terminated.html) | `terminated(tag("ab"), tag("XY"))` | `"abXYZ"` | `Ok(("Z", "ab"))` |从第一个语法分析器获取一个对象，然后匹配第二个语法分析器中的一个对象并丢弃它。|
+| [pair](https://docs.rs/nom/latest/nom/sequence/fn.pair.html) | `pair(tag("ab"), tag("XY"))` | `"abXYZ"` | `Ok(("Z", ("ab", "XY")))` |从第一个解析器获取一个对象，然后从第二个解析器获取另一个对象。|
+| [separated_pair](https://docs.rs/nom/latest/nom/sequence/fn.separated_pair.html) | `separated_pair(tag("hello"), char(','), tag("world"))` | `"hello,world!"` | `Ok(("!", ("hello", "world")))` |从第一个解析器获取一个对象，然后匹配sep_parser中的一个对象并丢弃它，然后从第二个解析器获取另一个对象。|
+| [tuple](https://docs.rs/nom/latest/nom/sequence/fn.tuple.html) | `((tag("ab"), tag("XY"), take(1)))` | `"abXYZ!"` | `Ok(("!", ("ab", "XY", "Z")))` | Chains parsers and assemble the sub results in a tuple. You can use as many child parsers as you can put elements in a tuple 链接解析器并将子结果组装到元组中。您可以使用尽可能多的子解析器来将元素放入元组中|
 
 ## Applying a parser multiple times
 
